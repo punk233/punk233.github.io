@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flower flood — Undertale флуд</title>
+<style>
+:root{
+  --pink:#ff4fa3; --purple:#8b5cf6; --yellow:#ffd84d; --blue:#55d8ff;
+  --ink:#24142f; --white:#fffdfd;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;color:var(--ink);
+  background:#000;
+  overflow-x:hidden;
+}
+body:before,body:after{
+  content:"";position:fixed;border-radius:50%;filter:blur(5px);z-index:-1;opacity:.65
+}
+body:before{width:260px;height:260px;background:#ff7ac4;top:7%;left:-90px}
+body:after{width:300px;height:300px;background:#7ee8ff;right:-120px;bottom:5%}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 7%;background:rgba(255,255,255,.72);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.8)
+}
+.logo{font-weight:900;font-size:1.3rem;color:var(--pink)}
+nav a{text-decoration:none;color:var(--ink);font-weight:700;margin-left:24px}
+.hero{
+  min-height:100vh;padding:150px 7% 80px;display:grid;
+  grid-template-columns:1.1fr .9fr;gap:50px;align-items:center
+}
+.badge{display:inline-block;padding:10px 16px;border-radius:999px;background:#fff;
+  box-shadow:0 10px 30px #d79bc944;font-weight:800;margin-bottom:20px}
+h1{font-size:clamp(4rem,10vw,8rem);line-height:.83;letter-spacing:-.07em}
+h1 span{display:block;color:var(--pink)}
+.hero p{font-size:1.25rem;line-height:1.6;max-width:620px;margin:28px 0}
+.btn{
+  display:inline-block;padding:16px 24px;border-radius:18px;background:var(--ink);
+  color:white;text-decoration:none;font-weight:900;box-shadow:0 12px 0 #d8b5e8;transition:.2s
+}
+.btn:hover{transform:translateY(4px);box-shadow:0 8px 0 #d8b5e8}
+.art{
+  position:relative;min-height:430px;border-radius:42px;
+  background:linear-gradient(145deg,#ff62b1,#8c65ff 55%,#54dfff);
+  box-shadow:0 30px 70px #9b56bd44;overflow:hidden;transform:rotate(2deg)
+}
+.flower{position:absolute;font-size:clamp(5rem,13vw,10rem);animation:float 4s ease-in-out infinite}
+.f1{left:8%;top:8%}.f2{right:4%;top:27%;animation-delay:-1.5s}.f3{left:27%;bottom:-2%;animation-delay:-2.5s}
+@keyframes float{50%{transform:translateY(-18px) rotate(7deg)}}
+section{padding:100px 7%}
+.section-title{font-size:clamp(2.5rem,6vw,5rem);letter-spacing:-.05em;margin-bottom:45px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{
+  background:rgba(255,255,255,.8);padding:30px;border-radius:28px;
+  box-shadow:0 18px 50px #7c4d9a1c;border:2px solid white
+}
+.card .emoji{font-size:3rem}.card h3{margin:18px 0 10px;font-size:1.5rem}.card p{line-height:1.6}
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}
+.about-box{
+  min-height:340px;border-radius:40px;background:var(--yellow);display:grid;place-items:center;
+  font-size:8rem;box-shadow:18px 18px 0 var(--pink);transform:rotate(-2deg)
+}
+.about p{font-size:1.2rem;line-height:1.8}
+.contact{
+  text-align:center;border-radius:40px;background:var(--ink);color:white;
+  padding:70px 30px;margin:0 7% 80px
+}
+.contact h2{font-size:clamp(2.5rem,6vw,5rem);margin-bottom:18px}
+.contact p{font-size:1.1rem;opacity:.8;margin-bottom:30px}
+.contact .btn{background:var(--pink);box-shadow:0 12px 0 #7b3fc2}
+footer{text-align:center;padding:30px;font-weight:700}
+@media(max-width:800px){
+  nav{padding:16px 5%}nav a{margin-left:10px;font-size:.9rem}
+  .hero,.about{grid-template-columns:1fr}.hero{padding-top:120px}
+  .cards{grid-template-columns:1fr}.art{min-height:330px}
+}
+
+/* UNDERTALE MODE */
+body{
+  font-family:"Courier New",monospace;
+  color:#fff;
+  background:#050505;
+  background-image:
+    radial-gradient(circle at 20% 15%, #25113b 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 30%, #1a1730 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 80%, #17172b 0 2px, transparent 3px);
+}
+body:before,body:after{display:none}
+nav{
+  background:rgba(0,0,0,.92);
+  border-bottom:2px solid #fff;
+  box-shadow:0 5px 25px #000;
+}
+.logo{color:#ffdf00;letter-spacing:2px}
+nav a{color:#fff;font-family:"Courier New",monospace}
+.hero{
+  background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75)),
+    radial-gradient(circle at 50% 45%,#26143d 0,#0b0b12 48%,#000 100%);
+}
+.badge{
+  background:#000;border:2px solid #fff;color:#fff;border-radius:0;
+  box-shadow:none;font-family:"Courier New",monospace
+}
+h1{
+  font-family:"Courier New",monospace;
+  font-size:clamp(3.2rem,9vw,7rem);
+  color:#fff;text-shadow:4px 4px 0 #000;
+}
+h1 span{color:#ff3030;text-shadow:3px 3px 0 #680000}
+.hero p{font-family:"Courier New",monospace;color:#ddd}
+.btn{
+  background:#000;border:2px solid #fff;border-radius:0;
+  box-shadow:5px 5px 0 #fff;color:#fff
+}
+.btn:hover{background:#fff;color:#000;box-shadow:2px 2px 0 #ff3030}
+.art{
+  background:#000;border:3px solid #fff;border-radius:0;
+  box-shadow:0 0 0 6px #000,0 0 0 8px #fff;
+  transform:none
+}
+.flower{filter:grayscale(1) contrast(1.5)}
+section{background:#000}
+.section-title{
+  font-family:"Courier New",monospace;color:#fff;
+  text-shadow:3px 3px 0 #7a0000
+}
+.card{
+  background:#050505;border:2px solid #fff;border-radius:0;
+  color:#fff;box-shadow:6px 6px 0 #fff
+}
+.card h3{color:#ffdf00}
+.card p{color:#ddd}
+.about-box{
+  background:#000;border:3px solid #fff;border-radius:0;
+  box-shadow:10px 10px 0 #ff3030;transform:none
+}
+.about p{color:#ddd}
+.contact{
+  background:#000;border:3px solid #fff;border-radius:0;
+  box-shadow:10px 10px 0 #ff3030
+}
+.contact h2{color:#ffdf00}
+.contact p{color:#ddd}
+.contact .btn{background:#000;color:#fff;box-shadow:5px 5px 0 #ffdf00}
+footer{background:#000;color:#777;border-top:1px solid #333}
+@keyframes float{50%{transform:translateY(-12px)}}
+.soul{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:110px;color:#ff3030;
+  animation:heart 1.2s infinite alternate;
+  text-shadow:0 0 20px #ff3030
+}
+@keyframes heart{to{transform:translate(-50%,-50%) scale(1.08)}}
+.undertale-note{
+  max-width:900px;margin:30px auto 0;padding:24px;
+  border:2px solid #fff;background:#000;color:#ddd;
+  line-height:1.7;text-align:center
+}
+.undertale-note b{color:#ffdf00}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">♥ FLOWER FLOOD</div>
+  <div><a href="#about">О флуде</a><a href="#rules">Что здесь?</a><a href="#contact">Вступить</a></div>
+</nav>
+
+<main>
+<section class="hero">
+  <div>
+    <div class="badge">[ YOU'RE FINALLY HERE. ]</div>
+    <h1>FLOWER <span>FLOOD</span></h1>
+    <p>Добро пожаловать во флуд по <b>UNDERTALE</b> — место, где монстры, люди и самые странные истории встречаются в одном Подземелье.</p>
+    <a class="btn" href="#contact">[ ВСТУПИТЬ ВО ФЛУД ]</a>
+  </div>
+  <div class="art undertale-screen" aria-label="Undertale style">
+    <div class="battle-text">* FLOWER FLOOD</div><div class="soul">♥</div><div class="enemy">FLOWER<br>FLOOD</div>
+    <div class="flower f1">✦</div><div class="flower f2">✧</div><div class="flower f3">✦</div>
+  </div>
+</section>
+
+<section id="about">
+  <h2 class="section-title">* ДОБРО ПОЖАЛОВАТЬ, ЧЕЛОВЕК.</h2>
+  <div class="about">
+    <div class="about-box">♥</div>
+    <div>
+      <p>Это не просто сайт. Это наш маленький уголок <b>Подземелья</b>, где можно общаться, знакомиться, шутить, обсуждать Undertale и просто приятно проводить время.</p>
+      <p style="margin-top:20px">Здесь каждый может найти себе место. Даже если твоя душа сегодня немного потерялась.</p>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <h2 class="section-title">* ЧТО ТЕБЯ ЗДЕСЬ ЖДЁТ?</h2>
+  <div class="cards">
+    <article class="card"><div class="emoji">♥</div><h3>ФЛУД</h3><p>Общение, приколы, мемы и бесконечные разговоры обо всём и ни о чём.</p></article>
+    <article class="card"><div class="emoji">☠</div><h3>UNDERTALE</h3><p>Персонажи, теории, любимые моменты, AU и всё, что связано с легендарной игрой.</p></article>
+    <article class="card"><div class="emoji">★</div><h3>СВОЯ КОМПАНИЯ</h3><p>Знакомься с другими участниками, выбирай персонажа и становись частью нашей истории.</p></article>
+  </div>
+  <div class="undertale-note"><b>* ПОДСКАЗКА:</b> не обязательно быть экспертом по Undertale. Главное — приходи с хорошим настроением. <br>И да... <b>твоя душа уже сохранена.</b></div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>♥ ХОЧЕШЬ ВОЙТИ?</h2>
+  <p>Чтобы вступить во флуд, напиши администратору в Telegram.</p>
+  <a class="btn" href="https://t.me/kill_supporter" target="_blank" rel="noopener">@kill_supporter →</a>
+</section>
+</main>
+<footer>© 2026 FLOWER FLOOD · * BUT NOBODY CAME.</footer>
+
+<style>
+/* Final Undertale visual layer */
+body{background:#000!important;color:#fff!important}
+body *{font-family:"Courier New",monospace!important}
+nav{background:#000!important;border-bottom:2px solid #fff!important}
+.logo{color:#fff!important;font-size:1.15rem}
+nav a{color:#fff!important}
+.hero{background:#000!important;min-height:100vh}
+.badge{color:#fff!important;background:#000!important;border:2px solid #fff!important}
+h1{color:#fff!important}
+h1 span{color:#f22!important}
+.hero p{color:#fff!important}
+.art.undertale-screen{
+  position:relative!important;
+  background:#000!important;
+  border:4px solid #fff!important;
+  box-shadow:none!important;
+  min-height:440px!important;
+  transform:none!important;
+  overflow:hidden!important;
+}
+.art.undertale-screen:before{
+  content:"";
+  position:absolute;inset:14px;
+  border:2px solid #fff;
+  pointer-events:none;
+}
+.art.undertale-screen .battle-text{
+  position:absolute;left:30px;top:28px;color:#fff;font-size:20px;font-weight:bold;
+}
+.art.undertale-screen .enemy{
+  position:absolute;left:50%;top:32%;transform:translate(-50%,-50%);
+  color:#fff;text-align:center;font-size:30px;line-height:1.2;font-weight:bold;
+  text-shadow:3px 3px #333;
+}
+.art.undertale-screen .soul{
+  left:50%!important;top:62%!important;color:#f22!important;
+  font-size:72px!important;text-shadow:0 0 12px #f22!important;
+}
+.section-title{color:#fff!important}
+section{background:#000!important}
+.card{background:#000!important;color:#fff!important;border:2px solid #fff!important;box-shadow:none!important}
+.card h3{color:#fff!important}
+.card p,.about p{color:#fff!important}
+.about-box{background:#000!important;color:#f22!important;border:3px solid #fff!important;box-shadow:none!important}
+.contact{background:#000!important;border:3px solid #fff!important;box-shadow:none!important}
+.contact h2{color:#fff!important}
+.contact p{color:#fff!important}
+.btn{background:#000!important;color:#fff!important;border:2px solid #fff!important;box-shadow:none!important}
+.btn:hover{background:#fff!important;color:#000!important}
+footer{background:#000!important;color:#fff!important;border-top:2px solid #fff}
+.undertale-note{background:#000!important;color:#fff!important;border:2px solid #fff!important}
+.undertale-note b{color:#fff!important}
+.flower{color:#fff!important;filter:none!important}
+</style>
+</body>
+</html>
